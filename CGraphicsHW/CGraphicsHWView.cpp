@@ -8,7 +8,7 @@
 #ifndef SHARED_HANDLERS
 #include "CGraphicsHW.h"
 #endif
-
+#include "resource.h"
 #include "CGraphicsHWDoc.h"
 #include "CGraphicsHWView.h"
 #include "CParams.h"
@@ -122,7 +122,11 @@ CCGraphicsHWDoc* CCGraphicsHWView::GetDocument() const // non-debug version is i
 void CCGraphicsHWView::OnSettingsParameters()
 {
 	CParams dlgParam;
-	dlgParam.DoModal();
+	if (dlgParam.DoModal() == IDOK) {
+		/*m_aparam = dlgParam.m_aparam;
+		m_bparam = dlgParam.m_bparam;
+		m_sparam = dlgParam.m_sparam;*/
+	}
 }
 
 
@@ -154,3 +158,5 @@ void CCGraphicsHWView::OnUpdateModeZeros(CCmdUI *pCmdUI)
 {
 	pCmdUI->SetCheck(!m_values);
 }
+
+

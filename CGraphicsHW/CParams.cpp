@@ -6,6 +6,7 @@
 #include "CParams.h"
 #include "MainFrm.h"
 #include "afxdialogex.h"
+#include "Resource.h"
 
 
 // CParams dialog
@@ -45,8 +46,29 @@ void CParams::DoDataExchange(CDataExchange* pDX)
 
 
 BEGIN_MESSAGE_MAP(CParams, CDialog)
+
+	ON_BN_CLICKED(IDC_BUTTON2, &CParams::OnBnClickedButton2)
+	ON_BN_CLICKED(IDC_BUTTON1, &CParams::OnBnClickedButton1)
 END_MESSAGE_MAP()
 
 
 // CParams message handlers
 
+
+
+
+void CParams::OnBnClickedButton2()
+{
+	// TODO: Add your control notification handler code here
+	//
+	CColorDialog dlgColor(RGB(255, 255, 255), CC_FULLOPEN);
+	dlgColor.DoModal();
+}
+
+
+void CParams::OnBnClickedButton1()
+{
+	// TODO: Add your control notification handler code here
+	CColorDialog dlgColor(RGB(0, 0, 0), CC_FULLOPEN);
+	dlgColor.DoModal();
+}
