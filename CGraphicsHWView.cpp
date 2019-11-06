@@ -71,6 +71,7 @@ void CCGraphicsHWView::OnDraw(CDC* pDC)
 		pDC->Rectangle(50, 100, 400, 200);
 		/* f(a,b,s) zeros representation */
 	}
+
 }
 
 

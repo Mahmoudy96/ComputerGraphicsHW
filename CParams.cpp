@@ -4,6 +4,7 @@
 #include "stdafx.h"
 #include "CGraphicsHW.h"
 #include "CParams.h"
+#include "MainFrm.h"
 #include "afxdialogex.h"
 
 
@@ -17,7 +18,12 @@ CParams::CParams(CWnd* pParent /*=nullptr*/)
 	, m_bparam(1)
 {
 	/*get client rect size to set sparam*/
-	//m_sparam = right-left;
+	CRect MyRect;
+	
+	
+	CMainFrame* pDlg = (CMainFrame*)AfxGetMainWnd();
+	pDlg->GetWindowRect(MyRect);
+	m_sparam = MyRect.Width() / 10;
 
 
 }
@@ -30,9 +36,9 @@ void CParams::DoDataExchange(CDataExchange* pDX)
 {
 	CDialog::DoDataExchange(pDX);
 	DDX_Text(pDX, IDC_APARAM, m_aparam);
-	DDV_MinMaxInt(pDX, m_aparam, 0, INT_MAX);
+	DDV_MinMaxInt(pDX, m_aparam, 1, INT_MAX);
 	DDX_Text(pDX, IDC_BPARAM, m_bparam);
-	DDV_MinMaxInt(pDX, m_bparam, 0, INT_MAX);
+	DDV_MinMaxInt(pDX, m_bparam, 1, INT_MAX);
 	DDX_Text(pDX, IDC_SPARAM, m_sparam);
 	DDV_MinMaxInt(pDX, m_sparam, 1, INT_MAX);
 }
@@ -43,3 +49,4 @@ END_MESSAGE_MAP()
 
 
 // CParams message handlers
+
