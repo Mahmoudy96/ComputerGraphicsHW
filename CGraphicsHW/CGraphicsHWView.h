@@ -47,6 +47,7 @@ public:
 private:
 	bool m_values{true};
 public:
+
 	afx_msg void OnUpdateModeValues(CCmdUI *pCmdUI);
 	afx_msg void OnUpdateModeZeros(CCmdUI *pCmdUI);
 };

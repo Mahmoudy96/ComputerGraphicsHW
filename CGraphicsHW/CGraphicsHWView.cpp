@@ -12,6 +12,7 @@
 #include "CGraphicsHWDoc.h"
 #include "CGraphicsHWView.h"
 #include "CParams.h"
+#include "MainFrm.h"
 #ifdef _DEBUG
 #define new DEBUG_NEW
 #endif
@@ -62,14 +63,47 @@ void CCGraphicsHWView::OnDraw(CDC* pDC)
 	if (!pDoc)
 		return;
 
+	int margin;
+	int x;
+	int y;
+	COLORREF color;
+	POINT pt;
+	CRect rect; // Client rectangle
+
+	GetClientRect(rect);
+	margin = rect.Width();
+
+
 	// TODO: add draw code for native data here
 	if(m_values == true){
-		pDC->Ellipse(100, 100, 300, 300);
+		//pDC->Ellipse(100, 100, 300, 300);
 		/* f(a,b,s) value representation */
+
+		for (x = rect.left + margin; x < rect.right - margin; x++)
+		{
+			for (y = rect.top + margin; y < rect.bottom - margin; y++)
+			{
+				pt.x = x;
+				pt.y = y;
+				color = GetContinuousColor(x, y);
+				pDC->SetPixel(pt,color);
+			}
+		}
+
 	}
-	else{
-		pDC->Rectangle(50, 100, 400, 200);
+	else {
+		//pDC->Rectangle(50, 100, 400, 200);
 		/* f(a,b,s) zeros representation */
+		for (x = rect.left + margin; x < rect.right - margin; x++)
+		{
+			for (y = rect.top + margin; y < rect.bottom - margin; y++)
+			{
+				pt.x = x;
+				pt.y = y;
+				color = GetDiscreteColor(x, y);
+				pDC->SetPixel(pt, color);
+			}
+		}
 	}
 
 }
