@@ -73,36 +73,36 @@ void CCGraphicsHWView::OnDraw(CDC* pDC)
 	GetClientRect(rect);
 	margin = rect.Width();
 
+	//Set coordinates system, where the center of the client space is (0,0):
+	int origin_x = rect.Width() / 2;
+	int origin_y = rect.Height() / 2;
+	
+	//get relative value in the coordinates system:
+	int normalized_x;
+	int normalized_y;
+
 
 	// TODO: add draw code for native data here
-	if(m_values == true){
-		//pDC->Ellipse(100, 100, 300, 300);
-		/* f(a,b,s) value representation */
 
-		for (x = rect.left + margin; x < rect.right - margin; x++)
+	for (x = rect.left + margin; x < rect.right - margin; x++)
+	{
+		for (y = rect.top + margin; y < rect.bottom - margin; y++)
 		{
-			for (y = rect.top + margin; y < rect.bottom - margin; y++)
-			{
-				pt.x = x;
-				pt.y = y;
-				color = GetContinuousColor(x, y);
-				pDC->SetPixel(pt,color);
-			}
-		}
+			int dist_x = x - origin_x;
+			int dist_y = y - origin_y;
+			normalized_x = x >= origin_x ? dist_x : -dist_x;
+			normalized_y = y >= origin_y ? dist_y : -dist_y;
+			pt.x = x;
+			pt.y = y;
 
-	}
-	else {
-		//pDC->Rectangle(50, 100, 400, 200);
-		/* f(a,b,s) zeros representation */
-		for (x = rect.left + margin; x < rect.right - margin; x++)
-		{
-			for (y = rect.top + margin; y < rect.bottom - margin; y++)
-			{
-				pt.x = x;
-				pt.y = y;
-				color = GetDiscreteColor(x, y);
-				pDC->SetPixel(pt, color);
+			if (m_values) {
+				color = GetContinuousColor(normalized_x, normalized_y);
 			}
+			else {
+				color = GetDiscreteColor(normalized_x, normalized_y);
+			}
+
+			pDC->SetPixel(pt,color);
 		}
 	}
 
