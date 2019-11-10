@@ -13,26 +13,16 @@
 
 IMPLEMENT_DYNAMIC(CParams, CDialog)
 
-int CParams::m_aparam = 0;
-int CParams::m_bparam = 0;
-int CParams::m_sparam = 0;
+int CParams::m_aparam = 1;
+int CParams::m_bparam = 1;
+int CParams::m_sparam = 1;
 
-COLORREF CParams::c1;
-COLORREF CParams::c2;
+COLORREF CParams::c1 = RGB(0,0,0);
+COLORREF CParams::c2 = RGB(255,255,255);
 
 CParams::CParams(CWnd* pParent /*=nullptr*/)
 	: CDialog(IDD_DIALOG1, pParent)
 {
-	CParams::m_aparam = 1;
-	CParams::m_bparam = 1;
-
-	/*get client rect size to set sparam*/
-	CRect MyRect;
-	
-	CMainFrame* pDlg = (CMainFrame*)AfxGetMainWnd();
-	pDlg->GetWindowRect(MyRect);
-	CParams::m_sparam = MyRect.Width() / 10;
-
 }
 
 CParams::~CParams()
@@ -64,7 +54,7 @@ void CParams::OnBnClickedButton2()
 {
 	// TODO: Add your control notification handler code here
 	//
-	CColorDialog dlgColor(RGB(255, 255, 255), CC_FULLOPEN);
+	CColorDialog dlgColor(CParams::c2, CC_FULLOPEN);
 	dlgColor.DoModal();
 	CParams::c2 = dlgColor.GetColor();
 }
@@ -74,7 +64,7 @@ void CParams::OnBnClickedButton2()
 void CParams::OnBnClickedButton1()
 {
 	// TODO: Add your control notification handler code here
-	CColorDialog dlgColor(RGB(0, 0, 0), CC_FULLOPEN);
+	CColorDialog dlgColor(CParams::c1, CC_FULLOPEN);
 	dlgColor.DoModal();
 	CParams::c1 = dlgColor.GetColor();
 }
@@ -95,7 +85,7 @@ double f(int x, int y) {
 
 COLORREF GetContinuousColor(int x, int y) {
 	double t = (f(x, y) + 1) / 2;
-	return CParams::c1 * (1 - (int)t) + CParams::c2 * (int)t;
+	return (COLORREF)((double)CParams::c1 * ((double)1 - t) + (double)CParams::c2 * t);
 }
 
 COLORREF GetDiscreteColor(int x, int y) {

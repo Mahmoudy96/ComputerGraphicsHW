@@ -63,7 +63,6 @@ void CCGraphicsHWView::OnDraw(CDC* pDC)
 	if (!pDoc)
 		return;
 
-	int margin;
 	int x;
 	int y;
 	COLORREF color;
@@ -71,7 +70,13 @@ void CCGraphicsHWView::OnDraw(CDC* pDC)
 	CRect rect; // Client rectangle
 
 	GetClientRect(rect);
-	margin = rect.Width();
+
+	static bool is_first_run = true;
+	if (is_first_run) {
+		CParams::m_sparam = rect.Width() / 10;
+		is_first_run = false;
+	}
+	
 
 	//Set coordinates system, where the center of the client space is (0,0):
 	int origin_x = rect.Width() / 2;
@@ -84,14 +89,13 @@ void CCGraphicsHWView::OnDraw(CDC* pDC)
 
 	// TODO: add draw code for native data here
 
-	for (x = rect.left + margin; x < rect.right - margin; x++)
+	for (x = 0; x < rect.Width(); x++)
 	{
-		for (y = rect.top + margin; y < rect.bottom - margin; y++)
+
+		for (y = 0; y < rect.Height(); y++)
 		{
-			int dist_x = x - origin_x;
-			int dist_y = y - origin_y;
-			normalized_x = x >= origin_x ? dist_x : -dist_x;
-			normalized_y = y >= origin_y ? dist_y : -dist_y;
+			int normalized_x = x - origin_x;
+			int normalized_y = origin_y - y;
 			pt.x = x;
 			pt.y = y;
 
