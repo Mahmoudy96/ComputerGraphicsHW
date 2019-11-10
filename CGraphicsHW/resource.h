@@ -15,13 +15,15 @@
 #define ID_SETTINGS_PARAMETERS          32771
 #define ID_MODE_VALUES                  32772
 #define ID_MODE_ZEROS                   32773
+#define IDC_PARAMBUTTON                 32775
+#define IDC_PARAMTOOLBAR                32776
 
 // Next default values for new objects
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NEXT_RESOURCE_VALUE        312
-#define _APS_NEXT_COMMAND_VALUE         32774
+#define _APS_NEXT_COMMAND_VALUE         32777
 #define _APS_NEXT_CONTROL_VALUE         1008
 #define _APS_NEXT_SYMED_VALUE           310
 #endif
