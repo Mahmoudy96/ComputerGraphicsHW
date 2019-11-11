@@ -83,9 +83,15 @@ double f(int x, int y) {
 	return cos((pow(a*(x-(w/2)), 4) + pow(b*(y-(h/2)), 4)) / pow(s, 3));
 }
 
+
 COLORREF GetContinuousColor(int x, int y) {
 	double t = (f(x, y) + 1) / 2;
-	return (COLORREF)((double)CParams::c1 * ((double)1 - t) + (double)CParams::c2 * t);
+	COLORREF c1_r = GetRValue(CParams::c1), c1_g = GetGValue(CParams::c1), c1_b = GetBValue(CParams::c1);
+	COLORREF c2_r = GetRValue(CParams::c2), c2_g = GetGValue(CParams::c2), c2_b = GetBValue(CParams::c2);
+	COLORREF c_red = (COLORREF)((double)c1_r * ((double)1 - t) + (double)c2_r * t);
+	COLORREF c_green = (COLORREF)((double)c1_g * ((double)1 - t) + (double)c2_g * t);
+	COLORREF c_blue = (COLORREF)((double)c1_b * ((double)1 - t) + (double)c2_b * t);
+	return	RGB(c_red, c_green, c_blue);
 }
 
 COLORREF GetDiscreteColor(int x, int y) {

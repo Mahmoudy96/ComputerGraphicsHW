@@ -75,17 +75,13 @@ void CCGraphicsHWView::OnDraw(CDC* pDC)
 	if (is_first_run) {
 		CParams::m_sparam = rect.Width() / 10;
 		is_first_run = false;
+		return;
 	}
 	
 
 	//Set coordinates system, where the center of the client space is (0,0):
 	int origin_x = rect.Width() / 2;
 	int origin_y = rect.Height() / 2;
-	
-	//get relative value in the coordinates system:
-	int normalized_x;
-	int normalized_y;
-
 
 	// TODO: add draw code for native data here
 
@@ -94,16 +90,14 @@ void CCGraphicsHWView::OnDraw(CDC* pDC)
 
 		for (y = 0; y < rect.Height(); y++)
 		{
-			int normalized_x = x - origin_x;
-			int normalized_y = origin_y - y;
 			pt.x = x;
 			pt.y = y;
 
 			if (m_values) {
-				color = GetContinuousColor(normalized_x, normalized_y);
+				color = GetContinuousColor(x, y);
 			}
 			else {
-				color = GetDiscreteColor(normalized_x, normalized_y);
+				color = GetDiscreteColor(x, y);
 			}
 
 			pDC->SetPixel(pt,color);
